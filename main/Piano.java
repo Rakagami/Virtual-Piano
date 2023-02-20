@@ -49,6 +49,11 @@ public class Piano extends JPanel {
 	private int basePitch = DEFAULT_BASE_PITCH;
 	
 	private Map<Integer, Integer> keyMap;
+
+    private enum KeyboardLayout {
+        QWERTZ,
+        QWERTY
+    }
 	
 	/**
 	 * Default constructor.
@@ -56,7 +61,7 @@ public class Piano extends JPanel {
 	public Piano() {
 		createKeys();		
 		createPedal();
-		initKeyMap();
+		initKeyMap(KeyboardLayout.QWERTZ);
 		
 		// width already assigned in createKeys()
 		height = LayoutConstant.keyFrameHeight + LayoutConstant.pedalPadding +
@@ -74,42 +79,85 @@ public class Piano extends JPanel {
 	 * A bootstrap method to initialize the key map.  The key map is a map
 	 * from virtual key codes (VK_blablabla) to the key number.
 	 */
-	private void initKeyMap() {
-		keyMap = new HashMap<Integer, Integer>();
-		keyMap.put(KeyEvent.VK_Z, 12 * 0 + 0); // C4
-		keyMap.put(KeyEvent.VK_S, 12 * 0 + 1);
-		keyMap.put(KeyEvent.VK_X, 12 * 0 + 2);
-		keyMap.put(KeyEvent.VK_D, 12 * 0 + 3);
-		keyMap.put(KeyEvent.VK_C, 12 * 0 + 4);
-		keyMap.put(KeyEvent.VK_V, 12 * 0 + 5);
-		keyMap.put(KeyEvent.VK_G, 12 * 0 + 6);
-		keyMap.put(KeyEvent.VK_B, 12 * 0 + 7);    
-		keyMap.put(KeyEvent.VK_H, 12 * 0 + 8);
-		keyMap.put(KeyEvent.VK_N, 12 * 0 + 9);
-		keyMap.put(KeyEvent.VK_J, 12 * 0 + 10);
-		keyMap.put(KeyEvent.VK_M, 12 * 0 + 11);
-		keyMap.put(KeyEvent.VK_Q, 12 * 1 + 0); // C5
-		keyMap.put(KeyEvent.VK_2, 12 * 1 + 1);
-		keyMap.put(KeyEvent.VK_W, 12 * 1 + 2);
-		keyMap.put(KeyEvent.VK_3, 12 * 1 + 3);
-		keyMap.put(KeyEvent.VK_E, 12 * 1 + 4);
-		keyMap.put(KeyEvent.VK_R, 12 * 1 + 5);
-		keyMap.put(KeyEvent.VK_5, 12 * 1 + 6);
-		keyMap.put(KeyEvent.VK_T, 12 * 1 + 7);
-		keyMap.put(KeyEvent.VK_6, 12 * 1 + 8);
-		keyMap.put(KeyEvent.VK_Y, 12 * 1 + 9);
-		keyMap.put(KeyEvent.VK_7, 12 * 1 + 10);
-		keyMap.put(KeyEvent.VK_U, 12 * 1 + 11);
-		keyMap.put(KeyEvent.VK_I, 12 * 2 + 0); // C6
-		keyMap.put(KeyEvent.VK_9, 12 * 2 + 1);
-		keyMap.put(KeyEvent.VK_O, 12 * 2 + 2);
-		keyMap.put(KeyEvent.VK_0, 12 * 2 + 3);
-		keyMap.put(KeyEvent.VK_P, 12 * 2 + 4);
-		keyMap.put(KeyEvent.VK_OPEN_BRACKET, 12 * 2 + 5);
-		keyMap.put(KeyEvent.VK_EQUALS, 12 * 2 + 6);
-		keyMap.put(KeyEvent.VK_CLOSE_BRACKET, 12 * 2 + 7);
-		keyMap.put(KeyEvent.VK_BACK_SPACE, 12 * 2 + 8);
-		keyMap.put(KeyEvent.VK_BACK_SLASH, 12 * 2 + 9);
+	private void initKeyMap(KeyboardLayout kbl) {
+        switch(kbl) {
+        case QWERTY:
+		    keyMap = new HashMap<Integer, Integer>();
+		    keyMap.put(KeyEvent.VK_Z, 12 * 0 + 0); // C4
+		    keyMap.put(KeyEvent.VK_S, 12 * 0 + 1);
+		    keyMap.put(KeyEvent.VK_X, 12 * 0 + 2);
+		    keyMap.put(KeyEvent.VK_D, 12 * 0 + 3);
+		    keyMap.put(KeyEvent.VK_C, 12 * 0 + 4);
+		    keyMap.put(KeyEvent.VK_V, 12 * 0 + 5);
+		    keyMap.put(KeyEvent.VK_G, 12 * 0 + 6);
+		    keyMap.put(KeyEvent.VK_B, 12 * 0 + 7);    
+		    keyMap.put(KeyEvent.VK_H, 12 * 0 + 8);
+		    keyMap.put(KeyEvent.VK_N, 12 * 0 + 9);
+		    keyMap.put(KeyEvent.VK_J, 12 * 0 + 10);
+		    keyMap.put(KeyEvent.VK_M, 12 * 0 + 11);
+		    keyMap.put(KeyEvent.VK_Q, 12 * 1 + 0); // C5
+		    keyMap.put(KeyEvent.VK_2, 12 * 1 + 1);
+		    keyMap.put(KeyEvent.VK_W, 12 * 1 + 2);
+		    keyMap.put(KeyEvent.VK_3, 12 * 1 + 3);
+		    keyMap.put(KeyEvent.VK_E, 12 * 1 + 4);
+		    keyMap.put(KeyEvent.VK_R, 12 * 1 + 5);
+		    keyMap.put(KeyEvent.VK_5, 12 * 1 + 6);
+		    keyMap.put(KeyEvent.VK_T, 12 * 1 + 7);
+		    keyMap.put(KeyEvent.VK_6, 12 * 1 + 8);
+		    keyMap.put(KeyEvent.VK_Y, 12 * 1 + 9);
+		    keyMap.put(KeyEvent.VK_7, 12 * 1 + 10);
+		    keyMap.put(KeyEvent.VK_U, 12 * 1 + 11);
+		    keyMap.put(KeyEvent.VK_I, 12 * 2 + 0); // C6
+		    keyMap.put(KeyEvent.VK_9, 12 * 2 + 1);
+		    keyMap.put(KeyEvent.VK_O, 12 * 2 + 2);
+		    keyMap.put(KeyEvent.VK_0, 12 * 2 + 3);
+		    keyMap.put(KeyEvent.VK_P, 12 * 2 + 4);
+		    keyMap.put(KeyEvent.VK_OPEN_BRACKET, 12 * 2 + 5);
+		    keyMap.put(KeyEvent.VK_EQUALS, 12 * 2 + 6);
+		    keyMap.put(KeyEvent.VK_CLOSE_BRACKET, 12 * 2 + 7);
+		    keyMap.put(KeyEvent.VK_BACK_SPACE, 12 * 2 + 8);
+		    keyMap.put(KeyEvent.VK_BACK_SLASH, 12 * 2 + 9);
+            break;
+        case QWERTZ:
+            // Some custom things, I like more than one octave per row
+		    keyMap = new HashMap<Integer, Integer>();
+		    keyMap.put(KeyEvent.VK_Y, 12 * 0 + 0); // C4
+		    keyMap.put(KeyEvent.VK_S, 12 * 0 + 1);
+		    keyMap.put(KeyEvent.VK_X, 12 * 0 + 2);
+		    keyMap.put(KeyEvent.VK_D, 12 * 0 + 3);
+		    keyMap.put(KeyEvent.VK_C, 12 * 0 + 4);
+		    keyMap.put(KeyEvent.VK_V, 12 * 0 + 5);
+		    keyMap.put(KeyEvent.VK_G, 12 * 0 + 6);
+		    keyMap.put(KeyEvent.VK_B, 12 * 0 + 7);    
+		    keyMap.put(KeyEvent.VK_H, 12 * 0 + 8);
+		    keyMap.put(KeyEvent.VK_N, 12 * 0 + 9);
+		    keyMap.put(KeyEvent.VK_J, 12 * 0 + 10);
+		    keyMap.put(KeyEvent.VK_M, 12 * 0 + 11);
+		    keyMap.put(KeyEvent.VK_COMMA, 12 * 1 + 0); // C5
+		    keyMap.put(KeyEvent.VK_L, 12 * 1 + 1);
+		    keyMap.put(KeyEvent.VK_PERIOD, 12 * 1 + 2); // Rest TODO
+		    keyMap.put(KeyEvent.VK_3, 12 * 1 + 3);
+		    keyMap.put(KeyEvent.VK_MINUS, 12 * 1 + 4);
+		    keyMap.put(KeyEvent.VK_R, 12 * 1 + 5);
+		    keyMap.put(KeyEvent.VK_5, 12 * 1 + 6);
+		    keyMap.put(KeyEvent.VK_T, 12 * 1 + 7);
+		    keyMap.put(KeyEvent.VK_6, 12 * 1 + 8);
+		    keyMap.put(KeyEvent.VK_Z, 12 * 1 + 9);
+		    keyMap.put(KeyEvent.VK_7, 12 * 1 + 10);
+		    keyMap.put(KeyEvent.VK_U, 12 * 1 + 11);
+		    keyMap.put(KeyEvent.VK_I, 12 * 2 + 0); // C6
+		    keyMap.put(KeyEvent.VK_9, 12 * 2 + 1);
+		    keyMap.put(KeyEvent.VK_O, 12 * 2 + 2);
+		    keyMap.put(KeyEvent.VK_0, 12 * 2 + 3);
+		    keyMap.put(KeyEvent.VK_P, 12 * 2 + 4);
+		    keyMap.put(KeyEvent.VK_OPEN_BRACKET, 12 * 2 + 5);
+		    keyMap.put(KeyEvent.VK_EQUALS, 12 * 2 + 6);
+		    keyMap.put(KeyEvent.VK_CLOSE_BRACKET, 12 * 2 + 7);
+		    keyMap.put(KeyEvent.VK_BACK_SPACE, 12 * 2 + 8);
+		    keyMap.put(KeyEvent.VK_BACK_SLASH, 12 * 2 + 9);
+        default:
+            break;
+        }
 	}
 	
 	/**
